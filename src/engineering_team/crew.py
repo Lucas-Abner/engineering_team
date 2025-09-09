@@ -14,7 +14,7 @@ class EngineeringTeam():
         self.llm=LLM(
             api_key="ollama",
             base_url="http://localhost:11434",
-            model="deepseek-r1:8b"
+            model="ollama/gpt-oss:20b"
         )
 
     @agent
@@ -22,7 +22,8 @@ class EngineeringTeam():
         return Agent(
             config=self.agents_config["engineering_lead"],
             verbose=True,
-            max_execution_time=200,
+            max_execution_time=600,
+            llm=self.llm
         )
     
     @agent
@@ -32,8 +33,9 @@ class EngineeringTeam():
             verbose=True,
             allow_code_execution=True,
             code_execution_mode="safe",
-            max_execution_time=240,
-            max_retries=5
+            max_execution_time=600,
+            max_retries=3,
+            llm=self.llm
         )
     
     @agent
@@ -41,6 +43,8 @@ class EngineeringTeam():
         return Agent(
             config=self.agents_config["frontend_engineer"],
             verbose=True,
+            max_execution_time=600,
+            llm=self.llm
         )
     
     @agent
@@ -50,8 +54,9 @@ class EngineeringTeam():
             verbose=True,
             allow_code_execution=True,
             code_execution_mode="safe",
-            max_execution_time=240,
-            max_retries=5
+            max_execution_time=600,
+            max_retries=3,
+            llm=self.llm
         )
     
     @task
